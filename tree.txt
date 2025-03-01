@@ -1,0 +1,71 @@
+// Run the following command and trim out the node_modules files: //
+// $: tree ~/lighthouse/projects/scheduler > ~/lighthouse/projects/scheduler/tree.txt //
+
+/home/labber/lighthouse/projects/scheduler
+├── README.md
+├── index.html
+├── jest.config.js
+├── netlify.toml
+├── node_modules
+│   └── # trimmed out of the tree
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── images
+│   │   ├── add.png
+│   │   ├── close.png
+│   │   ├── edit.png
+│   │   ├── lhl.png
+│   │   ├── logo.png
+│   │   ├── status.png
+│   │   └── trash.png
+│   └── manifest.json
+├── src
+│   ├── components
+│   │   ├── Application.jsx
+│   │   ├── Application.scss
+│   │   ├── Appointment
+│   │   │   ├── Confirm.jsx
+│   │   │   ├── Empty.jsx
+│   │   │   ├── Error.jsx
+│   │   │   ├── Form.jsx
+│   │   │   ├── Header.jsx
+│   │   │   ├── Show.jsx
+│   │   │   ├── Status.jsx
+│   │   │   ├── index.jsx
+│   │   │   └── styles.scss
+│   │   ├── Button.jsx
+│   │   ├── Button.scss
+│   │   ├── DayList.jsx
+│   │   ├── DayListItem.jsx
+│   │   ├── DayListItem.scss
+│   │   ├── InterviewerList.jsx
+│   │   ├── InterviewerList.scss
+│   │   ├── InterviewerListItem.jsx
+│   │   ├── InterviewerListItem.scss
+│   │   └── __tests__
+│   │       └── Button.test.js
+│   ├── helpers
+│   │   ├── selectors.js
+│   │   └── selectors.test.js
+│   ├── hooks
+│   │   ├── __tests__
+│   │   │   └── useVisualMode.test.js
+│   │   ├── useApplicationData.js
+│   │   ├── useRealtimeUpdate.js
+│   │   └── useVisualMode.js
+│   ├── index.scss
+│   ├── main.jsx
+│   ├── reducers
+│   │   ├── application.js
+│   │   └── application.test.js
+│   ├── setupTests.js
+│   └── styles
+│       ├── animations.scss
+│       ├── mixins.scss
+│       ├── normalize.scss
+│       ├── reset.scss
+│       ├── typography.scss
+│       └── variables.scss
+└── vite.config.js
