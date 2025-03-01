@@ -46,6 +46,8 @@ export default function Appointment(props) {
 
     const interview = { student: name, interviewer };
 
+    console.log("Saving appointment:", interview);
+
     transition(SAVING);
 
     props
@@ -58,6 +60,7 @@ export default function Appointment(props) {
   }
 
   function destroy() {
+    console.log("Deleting appointment with ID:", props.id);
     transition(DELETING, true);
 
     props
@@ -73,7 +76,14 @@ export default function Appointment(props) {
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
 
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === EMPTY && (
+        <Empty
+          onAdd={() => {
+            console.log("Transitioning to CREATE mode");
+            transition(CREATE);
+          }}
+        />
+      )}
 
       {mode === SHOW && (
         <Show
@@ -81,13 +91,26 @@ export default function Appointment(props) {
           interviewer={props.interviewers.find(
             (interviewer) => interviewer.id === props.interview.interviewer
           )}
-          onDelete={() => transition(CONFIRM)}
-          onEdit={() => transition(EDIT)}
+          onDelete={() => {
+            console.log("User clicked DELETE");
+            transition(CONFIRM);
+          }}
+          onEdit={() => {
+            console.log("User clicked EDIT");
+            transition(EDIT);
+          }}
         />
       )}
 
       {mode === CREATE && (
-        <Form interviewers={props.interviewers} onCancel={back} onSave={save} />
+        <Form
+          interviewers={props.interviewers}
+          onCancel={() => {
+            console.log("User clicked CANCEL in CREATE mode");
+            back();
+          }}
+          onSave={save}
+        />
       )}
 
       {mode === EDIT && (
@@ -95,7 +118,10 @@ export default function Appointment(props) {
           name={props.interview.student}
           interviewer={props.interview.interviewer}
           interviewers={props.interviewers}
-          onCancel={back}
+          onCancel={() => {
+            console.log("User clicked CANCEL in EDIT mode");
+            back();
+          }}
           onSave={save}
         />
       )}
@@ -106,7 +132,10 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           message="Are you sure you would like to delete?"
-          onCancel={back}
+          onCancel={() => {
+            console.log("User canceled DELETE");
+            back();
+          }}
           onConfirm={destroy}
         />
       )}
