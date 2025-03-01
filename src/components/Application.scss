@@ -36,3 +36,21 @@
   padding: 0 $spacing;
   width: 100%;
 }
+
+.reset-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 15px;
+  width: 80%;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    background-color: darkred;
+  }
+}

@@ -10,6 +10,7 @@ import "./Application.scss";
 
 import DayList from "./DayList";
 import Appointment from "./Appointment";
+import Button from "./Button"; 
 
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } =
@@ -33,6 +34,19 @@ export default function Application(props) {
     }
   );
 
+  // Function to reset the database
+  const handleReset = () => {
+    fetch("/api/debug/reset", { method: "GET" })
+      .then((res) => {
+        if (res.ok) {
+          window.location.reload(); // Reload the app to reflect changes
+        } else {
+          alert("Database reset failed.");
+        }
+      })
+      .catch((error) => alert("Error resetting database:", error));
+  };
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -45,6 +59,9 @@ export default function Application(props) {
         <nav className="sidebar__menu">
           <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
+        <Button danger onClick={handleReset} className="reset-button">
+          Reset DB
+        </Button>
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
