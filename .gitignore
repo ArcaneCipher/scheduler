@@ -1,2 +1,6 @@
 node_modules
 dist
+
+# Ignore Jest coverage reports
+coverage/
+.nyc_output/
