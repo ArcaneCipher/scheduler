@@ -1,7 +1,7 @@
 import React from "react";
-import { act } from "react"; // ✅ Correct import
-import { render, screen } from "@testing-library/react"; // ✅ screen added
-import "@testing-library/jest-dom"; // ✅ Fix for missing matchers
+import { act } from "react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import axios from "axios";
 import Application from "../Application";
 
@@ -44,6 +44,6 @@ describe("Application", () => {
       render(<Application />);
     });
 
-    expect(screen.getByText("Monday")).toBeInTheDocument(); // ✅ Should now work
+    expect(screen.getByText("Monday")).toBeInTheDocument();
   });
 });
