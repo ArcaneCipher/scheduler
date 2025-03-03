@@ -9,9 +9,9 @@ export default function reducer(state, action) {
     case SET_APPLICATION_DATA:
       return {
         ...state,
-        days: action.days,
-        appointments: action.appointments,
-        interviewers: action.interviewers
+        days: Array.isArray(action.days) ? action.days : [],
+        appointments: action.appointments || {},
+        interviewers: action.interviewers || {}
       };
     case SET_INTERVIEW: {
       const appointment = {

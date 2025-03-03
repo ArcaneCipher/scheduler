@@ -1,24 +1,28 @@
 export function getAppointmentsForDay(state, day) {
-  const found = state.days.find(d => day === d.name);
+  if (!state.days || !Array.isArray(state.days)) return []; // Guard clause
 
-  if (state.days.length === 0 || found === undefined) return [];
+  const found = state.days.find((d) => d.name === day);
 
-  return found.appointments.map(id => state.appointments[id]);
+  if (!found || !Array.isArray(found.appointments)) return [];
+
+  return found.appointments.map((id) => state.appointments[id]);
 }
 
 export function getInterviewersForDay(state, day) {
-  const found = state.days.find(d => day === d.name);
+  if (!state.days || !Array.isArray(state.days)) return []; // Guard clause
 
-  if (state.days.length === 0 || found === undefined) return [];
+  const found = state.days.find((d) => d.name === day);
 
-  return found.interviewers.map(id => state.interviewers[id]);
+  if (!found || !Array.isArray(found.interviewers)) return [];
+
+  return found.interviewers.map((id) => state.interviewers[id]);
 }
 
 export function getInterview(state, interview) {
   return (
     interview && {
       ...interview,
-      interviewer: state.interviewers[interview.interviewer]
+      interviewer: state.interviewers[interview.interviewer],
     }
   );
 }

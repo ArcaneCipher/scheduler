@@ -1,7 +1,10 @@
-import React from "react";
+import React, { act } from "react";
 import "@testing-library/jest-dom";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup, fireEvent, } from "@testing-library/react";
 import Form from "../Appointment/Form";
+import axios from "axios"; // Ensure Axios is imported
+
+jest.mock("axios"); // Mock Axios
 
 afterEach(cleanup);
 
@@ -29,7 +32,7 @@ describe("Form", () => {
   });
 
   // TEST 3
-  it("validates that the student name is not blank", () => {
+  it("validates that the student name is not blank", async () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
 
@@ -37,7 +40,9 @@ describe("Form", () => {
     const { getByText } = render(<Form interviewers={interviewers} onSave={onSave} />);
 
     /* 3. Click the save button */
-    fireEvent.click(getByText("Save"));
+    await act(async () => {
+      fireEvent.click(getByText("Save"));
+    });
 
     /* 4. Ensure the error message is displayed and onSave was not called */
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
@@ -45,7 +50,7 @@ describe("Form", () => {
   });
 
   // TEST 4
-  it("validates that the interviewer cannot be null", () => {
+  it("validates that the interviewer cannot be null", async () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
 
@@ -55,14 +60,16 @@ describe("Form", () => {
     );
 
     /* 3. Click the save button */
-    fireEvent.click(getByText("Save"));
+    await act(async () => {
+      fireEvent.click(getByText("Save"));
+    });
 
     expect(getByText(/please select an interviewer/i)).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
   });
 
   // TEST 5
-  it("calls onSave function when the name and interviewer is defined", () => {
+  it("calls onSave function when the name and interviewer is defined", async () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
 
@@ -77,7 +84,9 @@ describe("Form", () => {
     );
 
     /* 3. Click the save button */
-    fireEvent.click(getByText("Save"));
+    await act(async () => {
+      fireEvent.click(getByText("Save"));
+    });
 
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
     expect(queryByText(/please select an interviewer/i)).toBeNull();

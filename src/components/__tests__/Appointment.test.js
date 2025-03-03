@@ -1,25 +1,49 @@
-/*
-  We are rendering `<Application />` down below, so we need React.createElement
-*/
 import React from "react";
-
-/*
-  We import our helper functions from the react-testing-library
-  The render function allows us to render Components
-*/
-import { render } from "@testing-library/react";
-
-/*
-  We import the component that we are testing
-*/
+import { act } from "react"; // ✅ Correct import
+import { render, screen } from "@testing-library/react"; // ✅ screen added
+import "@testing-library/jest-dom"; // ✅ Fix for missing matchers
+import axios from "axios";
 import Application from "../Application";
 
-/*
-  A test that renders a React Component
-*/
+// Mock API responses
+jest.mock("axios");
 
-describe("Appointment", () => {
-  it("renders without crashing", () => {
-    render(<Application />);
+describe("Application", () => {
+  beforeEach(() => {
+    axios.get
+      .mockResolvedValueOnce({
+        data: [
+          { id: 1, name: "Monday", interviewers: [1, 2], spots: 2 },
+          { id: 2, name: "Tuesday", interviewers: [3, 4], spots: 1 },
+        ],
+      })
+      .mockResolvedValueOnce({
+        data: {
+          1: { id: 1, time: "12pm", interview: null },
+          2: { id: 2, time: "1pm", interview: null },
+        },
+      })
+      .mockResolvedValueOnce({
+        data: {
+          1: {
+            id: 1,
+            name: "Sylvia Palmer",
+            avatar: "https://i.imgur.com/LpaY82x.png",
+          },
+          2: {
+            id: 2,
+            name: "Tori Malcolm",
+            avatar: "https://i.imgur.com/Nmx0Qxo.png",
+          },
+        },
+      });
+  });
+
+  it("renders without crashing", async () => {
+    await act(async () => {
+      render(<Application />);
+    });
+
+    expect(screen.getByText("Monday")).toBeInTheDocument(); // ✅ Should now work
   });
 });
